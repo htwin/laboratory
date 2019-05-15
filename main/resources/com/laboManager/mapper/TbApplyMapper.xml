@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.laboManager.mapper.TbApplyMapper" >
+  <resultMap id="BaseResultMap" type="com.laboManager.pojo.TbApply" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="applicant" property="applicant" jdbcType="VARCHAR" />
+    <result column="apply_date" property="applyDate" jdbcType="TIMESTAMP" />
+    <result column="apply_e_name" property="applyEName" jdbcType="VARCHAR" />
+    <result column="apply_e_amount" property="applyEAmount" jdbcType="VARCHAR" />
+    <result column="apply_e_factory" property="applyEFactory" jdbcType="VARCHAR" />
+    <result column="apply_e_type" property="applyEType" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, applicant, apply_date, apply_e_name, apply_e_amount, apply_e_factory, apply_e_type, 
+    price, reason
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.laboManager.pojo.TbApplyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_apply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_apply
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_apply
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.laboManager.pojo.TbApplyExample" >
+    delete from tb_apply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.laboManager.pojo.TbApply" >
+    insert into tb_apply (id, applicant, apply_date, 
+      apply_e_name, apply_e_amount, apply_e_factory, 
+      apply_e_type, price, reason
+      )
+    values (#{id,jdbcType=INTEGER}, #{applicant,jdbcType=VARCHAR}, #{applyDate,jdbcType=TIMESTAMP}, 
+      #{applyEName,jdbcType=VARCHAR}, #{applyEAmount,jdbcType=VARCHAR}, #{applyEFactory,jdbcType=VARCHAR}, 
+      #{applyEType,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{reason,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.laboManager.pojo.TbApply" >
+    insert into tb_apply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="applicant != null" >
+        applicant,
+      </if>
+      <if test="applyDate != null" >
+        apply_date,
+      </if>
+      <if test="applyEName != null" >
+        apply_e_name,
+      </if>
+      <if test="applyEAmount != null" >
+        apply_e_amount,
+      </if>
+      <if test="applyEFactory != null" >
+        apply_e_factory,
+      </if>
+      <if test="applyEType != null" >
+        apply_e_type,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="reason != null" >
+        reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="applicant != null" >
+        #{applicant,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDate != null" >
+        #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyEName != null" >
+        #{applyEName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyEAmount != null" >
+        #{applyEAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="applyEFactory != null" >
+        #{applyEFactory,jdbcType=VARCHAR},
+      </if>
+      <if test="applyEType != null" >
+        #{applyEType,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.laboManager.pojo.TbApplyExample" resultType="java.lang.Integer" >
+    select count(*) from tb_apply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_apply
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.applicant != null" >
+        applicant = #{record.applicant,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyDate != null" >
+        apply_date = #{record.applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.applyEName != null" >
+        apply_e_name = #{record.applyEName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyEAmount != null" >
+        apply_e_amount = #{record.applyEAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyEFactory != null" >
+        apply_e_factory = #{record.applyEFactory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyEType != null" >
+        apply_e_type = #{record.applyEType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.reason != null" >
+        reason = #{record.reason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_apply
+    set id = #{record.id,jdbcType=INTEGER},
+      applicant = #{record.applicant,jdbcType=VARCHAR},
+      apply_date = #{record.applyDate,jdbcType=TIMESTAMP},
+      apply_e_name = #{record.applyEName,jdbcType=VARCHAR},
+      apply_e_amount = #{record.applyEAmount,jdbcType=VARCHAR},
+      apply_e_factory = #{record.applyEFactory,jdbcType=VARCHAR},
+      apply_e_type = #{record.applyEType,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL},
+      reason = #{record.reason,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.laboManager.pojo.TbApply" >
+    update tb_apply
+    <set >
+      <if test="applicant != null" >
+        applicant = #{applicant,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDate != null" >
+        apply_date = #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyEName != null" >
+        apply_e_name = #{applyEName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyEAmount != null" >
+        apply_e_amount = #{applyEAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="applyEFactory != null" >
+        apply_e_factory = #{applyEFactory,jdbcType=VARCHAR},
+      </if>
+      <if test="applyEType != null" >
+        apply_e_type = #{applyEType,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="reason != null" >
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.laboManager.pojo.TbApply" >
+    update tb_apply
+    set applicant = #{applicant,jdbcType=VARCHAR},
+      apply_date = #{applyDate,jdbcType=TIMESTAMP},
+      apply_e_name = #{applyEName,jdbcType=VARCHAR},
+      apply_e_amount = #{applyEAmount,jdbcType=VARCHAR},
+      apply_e_factory = #{applyEFactory,jdbcType=VARCHAR},
+      apply_e_type = #{applyEType,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      reason = #{reason,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

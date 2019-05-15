@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>报修管理模块</title>
+		<link rel="stylesheet" href="css/layui.css">
+		<link rel="stylesheet" href="css/modules/layer/default/layer.css" />
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="js/base.js"></script>
+		<script type="text/javascript" src="js/service/repairService.js"></script>
+		<script type="text/javascript" src="js/controller/repairController.js"></script>
+		<script src="js/layui.js"></script>
+		<script src="js/lay/modules/layer.js"></script> 
+		<script type="text/javascript" src="js/lay/modules/form.js"></script>
+	</head>
+
+	<body ng-app="laboManager" ng-controller="repairController"
+	ng-init="search(1,10)">
+		<div style="margin-bottom: 10px;border-bottom: 1px solid;width: 270px;">
+			<h1>报修管理模块</h1>
+		</div>
+		<div style="float: right;"> 
+			<input type="text" ng-model="repairVo.equipmentName" class="layui-input" style="width: 240px;float: right;margin-right: 200px" />
+			<button class="layui-btn" ng-click="search(1,10)" style="float: right;margin-right: -350px">
+  				搜索设备 
+			</button>
+		</div>
+		<div style="padding-top: 10px;">
+			<table lay-even class="layui-table">
+				<colgroup>
+					<col width="20">
+					<col width="100">
+					<col width="200">
+					<col width="150">
+					<col width="150">
+					<col width="300">
+				</colgroup>
+				<thead>
+					<tr style="background-color: #393d49;color: white;font-size: 20px;">
+						<th>id</th>
+						<th>名称</th>
+						<th>型号</th>
+						<th>状态</th>
+						<th>报修人</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="pojo in repairList"> 
+						<td>{{pojo.id}}</td>
+						<td>{{pojo.equipmentName}}</td>
+						<td>{{pojo.equipmentType}}</td>
+						<td><font color="red">修理中。。。</font></td>
+						<td><font color="blue">{{pojo.repairName}}</font></td>
+						<td>
+							<button class="layui-btn" ng-click="showRepairSuccessForm(pojo.equipmentId,pojo.id)">已修好</button>
+							<button class="layui-btn" ng-click="showScrapForm(pojo.equipmentId)">报废处理</button>
+						</td>
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+	</body>
+	<!--===================================================================================  -->
+	<form class="layui-form" style="display: none;" id="scrapForm">
+		<div class="layui-form-item">
+			<label class="layui-form-label">报废人</label>
+			<div class="layui-input-block">
+				<input type="text" name="typename" ng-model="scrap.scrapName" 
+					required lay-verify="required" placeholder="请输入报废人"
+					autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		 
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit lay-filter="formDemo"
+					ng-click="scrapEquipment()">确定</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			</div>
+		</div>
+	</form>
+	<!--===================================================================================  -->
+	<form class="layui-form" style="display: none;" id="repairSuccessForm">
+		<div class="layui-form-item">
+			<label class="layui-form-label">修理时间：</label>
+			<div class="layui-input-block">
+				<input type="date" name="typename" ng-model="repair.repairDate" 
+					required lay-verify="required" 
+					autocomplete="off" class="layui-input">
+			</div>
+		</div> 
+		
+		 <div class="layui-form-item">
+			<label class="layui-form-label">修理价格：</label>
+			<div class="layui-input-block">
+				<input type="number" name="typename" ng-model="repair.repairPrice" 
+					required lay-verify="required" placeholder="请输入修理价格"
+					autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		
+		 <div class="layui-form-item">
+			<label class="layui-form-label">修理厂商：</label>
+			<div class="layui-input-block">
+				<input type="text" name="typename" ng-model="repair.repairFactory" 
+					required lay-verify="required" placeholder="请输入修理厂商"
+					autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit lay-filter="formDemo"
+					ng-click="repairSuccess()">确定</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			</div>
+		</div>
+	</form>
+
+</html>

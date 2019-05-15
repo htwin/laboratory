@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.laboManager.mapper.ScrapVoMapper" >
+<resultMap type="com.laboManager.entity.ScrapVo" id="myMap">
+   <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="scrap_name" jdbcType="VARCHAR" property="scrapName" />
+    <result column="scrap_date" jdbcType="TIMESTAMP" property="scrapDate" />
+    <result column="equipment_id" jdbcType="INTEGER" property="equipmentId" />
+     <result column="name" property="equipmentName" jdbcType="VARCHAR" />
+    <result column="type" property="equipmentType" jdbcType="VARCHAR" />
+</resultMap>
+
+	<select id="findScrapList" parameterType="com.laboManager.entity.ScrapVo" resultMap="myMap">
+		select 
+		s.id,s.scrap_name,s.scrap_date,e.name,e.type,e.id as equipment_id
+		from 
+		tb_scrap s,tb_equipment e 
+		where 1=1
+		<if test="scrapVo.equipmentName!=null and scrapVo.equipmentName!=''">
+		  and e.name like '%${scrapVo.equipmentName}%'
+		</if>
+		  and e.status=2 and s.equipment_id=e.id
+	</select>
+</mapper>

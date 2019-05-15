@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>实验室设备管理系统登录</title>
+<link rel="stylesheet" href="css/layui.css" media="all">
+<script src="js/lay/modules/layer.js"></script>
+<script type="text/javascript" src="js/lay/modules/form.js"></script>
+</head>
+<body style="background-color: #009688">
+	<div style="margin-left: 410px;margin-top: 170px">
+		<div style="margin-left: 60px;margin-bottom: 20px">
+			<h1 style="color: white;">实验室设备管理系统登录</h1>
+		</div>
+		<form class="layui-form" action="login" method="post">
+			<div class="layui-form-item">
+				<label class="layui-form-label" >用户名：</label>
+				<div class="layui-input-inline">
+					<input type="text" name="username" required lay-verify="required"
+						placeholder="请输入用户名" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">密码：</label>
+				<div class="layui-input-inline">
+					<input type="password" name="password" required
+						lay-verify="required" placeholder="请输入密码" autocomplete="off"
+						class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<button class="layui-btn layui-btn-primary" lay-submit lay-filter="formDemo">登录</button>
+					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<script>
+		//Demo
+		layui.use('form', function() {
+			var form = layui.form;
+
+			//监听提交
+			form.on('submit(formDemo)', function(data) {
+				console.log("123");
+                return false;
+			});     
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>报废管理模块</title>
+		<link rel="stylesheet" href="css/layui.css">
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="js/base.js"></script>
+		<script type="text/javascript" src="js/service/scrapService.js"></script>
+		<script type="text/javascript" src="js/controller/scrapController.js"></script>
+	</head>
+
+	<body ng-app="laboManager" ng-controller="scrapController" ng-init="search(1,10)">
+		<div style="margin-bottom: 10px;border-bottom: 1px solid;width: 270px;">
+			<h1>报废管理模块</h1>
+		</div>
+		<div style="width: 100px;float: left;">
+			<button class="layui-btn" ng-click="del()">  
+  				批量删除
+			</button>
+		</div> 
+		<div style="float: right;">
+			<input type="text" ng-model="scrapVo.equipmentName" class="layui-input" style="width: 240px;float: right;margin-right: 200px" />
+			<button class="layui-btn" ng-click="search(1,10)" style="float: right;margin-right: -350px">
+  				搜索设备  
+			</button>
+		</div>
+		<div style="padding-top: 10px;">
+			<table lay-even class="layui-table">
+				<colgroup>
+					<col width="40">
+					<col width="40">
+					<col width="150">
+					<col width="150">
+					<col width="200">
+					<col width="150">
+					<col width="200">
+				</colgroup>
+				<thead>
+					<tr style="background-color: #393d49;color: white;font-size: 20px;">
+						<th>选择</th>  
+						<th>id</th>
+						<th>名称</th>
+						<th>型号</th>
+						<th>报废人</th>
+						<th>状态</th>
+						<th>报废日期</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="pojo in scrapList"> 
+						<td><input type="checkbox" ng-click="updateSelectOption($event,pojo.id,pojo.equipmentId)"></td>
+						<td>{{pojo.id}}</td>
+						<td>{{pojo.equipmentName}}</td>
+						<td>{{pojo.equipmentType}}</td>
+						<td>{{pojo.scrapName}}</td>
+						<td><font color="red">已报废</font></td>
+						<td>{{pojo.scrapDate}}</td>
+						<td>
+							<button class="layui-btn" ng-click="del(pojo.id,pojo.equipmentId)">删除设备</button>
+						</td>
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+		<script src="js/layui.js"></script>
+	</body>
+
+</html>

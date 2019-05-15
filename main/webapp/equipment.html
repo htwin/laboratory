@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>设备管理模块</title> 
+<link rel="stylesheet" href="css/layui.css">  
+<link rel="stylesheet" href="css/modules/layer/default/layer.css" />
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="js/service/equipmentService.js"></script>
+<script type="text/javascript" src="js/controller/equipmentController.js"></script>
+<script src="js/layui.js"></script>
+<script src="js/lay/modules/layer.js"></script> 
+<script type="text/javascript" src="js/lay/modules/form.js"></script>
+<style>
+
+#page ul li {
+	text-decoration: none;
+	float: left;
+	padding: 0 10px;
+	border: 1px solid #f2f2f2;
+	font-size: 20px;
+	height: 30px;
+}
+
+#lightPage a {
+	color: blue;
+}
+</style>
+</head>
+
+<body ng-app="laboManager" ng-controller="equipmentController"
+	ng-init="search(1,10)">
+	<div
+		style="margin-bottom: 10px; border-bottom: 1px solid; width: 270px;">
+		<h1>设备管理模块</h1>
+	</div>
+	<div style="width: 100px; float: left;">
+		<a href="add_update.html"><button class="layui-btn">添加设备
+			</button></a>
+	</div>
+	<div style="float: right;">
+		<input type="text" class="layui-input" ng-model="equipment.name"
+			style="width: 240px; float: right; margin-right: 200px" />
+		<button class="layui-btn" ng-click="search(1,10)"
+			style="float: right; margin-right: -350px">搜索设备</button>
+	</div>
+	<div style="padding-top: 10px;">
+		<table lay-even class="layui-table">
+			<colgroup>
+				<col width="40">
+				<col width="20">
+				<col width="100">
+				<col width="200">
+				<col width="150">
+				<col width="40">
+				<col width="100">
+				<col width="150">
+				<col width="400">
+			</colgroup>
+			<thead>
+				<tr
+					style="background-color: #393d49; color: white; font-size: 20px;">
+					<th>选择</th>
+					<th>id</th>
+					<th>名称</th>
+					<th>型号</th>
+					<th>单价</th>
+					<th>数量</th>
+					<th>生成厂商</th>
+					<th>生产日期</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="pojo in equipmentList">
+					<td><input type="checkbox"></td>
+					<td>{{pojo.id}}</td>
+					<td>{{pojo.name}}</td>
+					<td>{{pojo.type}}</td>
+					<td>{{pojo.price}}</td>
+					<td>{{pojo.amount}}</td>
+					<td>{{pojo.fromFactory}}</td>
+					<td>{{pojo.createdate}}</td>
+					<td>
+						<button class="layui-btn" ng-click="showRepairForm(pojo.id)">报修处理</button>
+						<button class="layui-btn" ng-click="showScrapForm(pojo.id)">报废处理</button> <a
+						href="add_update.html#?id={{pojo.id}}"><button
+								class="layui-btn">修改</button></a>
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+	<!--分页-->
+	<div id="page">
+		<ul>
+			<li ng-if="currentPage==1">《</li>
+			<li ng-if="currentPage>1"><a href="#"
+				ng-click="search(currentPage-1,10)">《</a></li>
+			<li ng-repeat="page in pages"><font size="5" id="lightPage"
+				ng-if="page==currentPage"><a href="#"
+					ng-click="search(page,10)">{{page}}</a></font> <font size="5"
+				ng-if="page!=currentPage"><a href="#"
+					ng-click="search(page,10)">{{page}}</a></font></li>
+			<li ng-if="currentPage==pageNum">》</li>
+			<li ng-if="currentPage<pageNum"><a href="#"
+				ng-click="search(currentPage+1,10)">》</a></li>
+		</ul>
+	</div>
+	
+
+	
+</body>
+<!--===================================================================================  -->
+	<form class="layui-form" style="display: none;" id="repairForm">
+		<div class="layui-form-item">
+			<label class="layui-form-label">报修人</label>
+			<div class="layui-input-block">
+				<input type="text" name="typename" ng-model="repair.repairName"
+					required lay-verify="required" placeholder="请输入报修人"
+					autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		 
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit lay-filter="formDemo"
+					ng-click="repairEquipment()">确定</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			</div>
+		</div>
+	</form>
+ 
+	<!--===================================================================================  -->
+	<!--===================================================================================  -->
+	<form class="layui-form" style="display: none;" id="scrapForm">
+		<div class="layui-form-item">
+			<label class="layui-form-label">报废人</label>
+			<div class="layui-input-block">
+				<input type="text" name="typename" ng-model="scrap.scrapName" 
+					required lay-verify="required" placeholder="请输入报废人"
+					autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		 
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit lay-filter="formDemo"
+					ng-click="scrapEquipment()">确定</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			</div>
+		</div>
+	</form>
+ 
+	<!--===================================================================================  -->
+	
+</html>

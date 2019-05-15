@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>申请新购</title>
+<link rel="stylesheet" href="css/layui.css">
+<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="js/base.js"></script>
+		<script type="text/javascript" src="js/service/applyService.js"></script>
+		<script type="text/javascript" src="js/controller/applyController.js"></script>
+<style>
+tr td {
+	text-align: right;
+	font-size: 16px;
+}
+</style>   
+</head>
+<body ng-app="laboManager" ng-controller="applyController">
+	<div
+		style="margin-bottom: 10px; border-bottom: 1px solid; width: 270px;">
+		<h1>申请新购模块</h1>
+	</div>
+	<div>  
+		<form> 
+			<table style="border-collapse: separate; border-spacing: 10px;">
+				<tr>
+					<td>设备名：</td>
+					<td colspan="2"><input ng-model="apply.applyEName" name="applyEName" required="required" class="layui-input"
+						type="text"></td>
+					<td>型号：</td>
+					<td colspan="2"><input ng-model="apply.applyEType" name="applyEType" required="required" class="layui-input"
+						type="text"></td>
+				</tr>
+				<tr>
+					<td>单价：</td>
+					<td colspan="2"><input ng-model="apply.price" name="price" required="required" class="layui-input"
+						type="number"></td>
+					<td>数量：</td>
+					<td colspan="2"><input ng-model="apply.applyEAmount" name="applyEAmount" required="required" class="layui-input"
+						type="number"></td>
+				</tr>
+				<tr>
+					<td>申请人：</td>
+					<td colspan="2"><input ng-model="apply.applicant" name="applicant" required="required" class="layui-input"
+						type="text"></td>
+					<td>生产厂商：</td>
+					<td colspan="2"><input ng-model="apply.applyEFactory" name="applyEFactory" required="required" class="layui-input"
+						type="text"></td>
+				</tr>
+				<tr>
+					<td>申请理由：</td>
+					<td colspan="5"><textarea ng-model="apply.reason" name="reason" required="required" rows="10" cols="80"></textarea></td>
+				</tr> 
+				<tr> 
+					<td colspan="6"><button type="submit" ng-click="applyTable()">导出申请表</button></td>
+				</tr> 
+			</table>
+		</form>
+	</div>
+	<script src="js/layui.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>添加||修改设备</title>
+<link rel="stylesheet" href="css/layui.css">
+<style>
+tr td {
+	text-align: right;
+	font-size: 16px;
+}
+</style>
+<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/base.js"></script>
+		<script type="text/javascript" src="js/service/equipmentService.js"></script>
+		<script type="text/javascript" src="js/controller/equipmentController.js"></script>
+</head> 
+<body ng-app="laboManager" ng-controller="equipmentController" ng-init="findEquipmentById()">
+	<div
+		style="margin-bottom: 10px; border-bottom: 1px solid; width: 270px;">
+		<h1>添加设备模块</h1>
+	</div>
+	<div>
+		<form >
+			<table style="border-collapse: separate; border-spacing: 10px;">
+				<tr>
+					<td>设备名称：</td> 
+					<td colspan="5"><input name="name" ng-model="equipment.name" value="{{equipment.name}}" required="required" class="layui-input" type="text"></td>
+				</tr>
+				<tr>
+					<td>单价：</td>
+					<td colspan="2"><input name="price" ng-model="equipment.price" value="{{equipment.price}}" required="required" class="layui-input" type="text"></td>
+					<td>数量：</td>
+					<td colspan="2"><input name="amount" ng-model="equipment.amount" value="{{equipment.amount}}" required="required" class="layui-input" type="text"></td>
+				</tr>
+				<tr>
+					<td>型号：</td>
+					<td colspan="2"><input name="type" ng-model="equipment.type" value="{{equipment.type}}" required="required" class="layui-input" type="text"></td>
+					<td>生产日期：</td>
+					<td colspan="2"><input name="createDate" ng-model="equipment.createDate" value="{{equipment.createDate}}" required="required" class="layui-input" type="date"></td>
+				</tr>
+				<tr>
+					<td>生产厂商：</td>
+					<td colspan="5"><input name="fromFactory" ng-model="equipment.fromFactory" value="{{equipment.fromFactory}}" required="required" class="layui-input" type="text"></td>
+				</tr>  
+				<tr>
+					<td colspan="4"><button  class="layui-btn" ng-click="save()" >保存</button></td>
+					<td colspan="2"><button  class="layui-btn" type="reset" >重置</button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<script src="js/layui.js"></script>
+</body>
+</html>

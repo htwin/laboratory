@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.laboManager.mapper.RepairVoMapper" >
+<resultMap type="com.laboManager.entity.RepairVo" id="myMap">
+    <id column="id" property="id" jdbcType="INTEGER" />
+     <result column="name" property="equipmentName" jdbcType="VARCHAR" />
+    <result column="type" property="equipmentType" jdbcType="VARCHAR" />
+    <result column="repair_name" property="repairName" jdbcType="VARCHAR" />
+    <result column="repair_date" property="repairDate" jdbcType="TIMESTAMP" />
+    <result column="repair_price" property="repairPrice" jdbcType="DECIMAL" />
+    <result column="repair_factory" property="repairFactory" jdbcType="VARCHAR" />
+    <result column="equipment_id" property="equipmentId" jdbcType="INTEGER" />
+    <result column="createDate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="equipmentId" property="equipmentId" jdbcType="INTEGER" />
+</resultMap>
+
+	<select id="findRepairList" parameterType="com.laboManager.entity.RepairVo" resultMap="myMap">
+		select 
+		r.id,r.repair_name,r.createDate,e.name,e.type,e.id as equipmentId
+		from 
+		tb_repair r,tb_equipment e 
+		where 1=1
+		<if test="repairVo.equipmentName!=null and repairVo.equipmentName!=''">
+		  and e.name like '%${repairVo.equipmentName}%'
+		</if>
+		  and e.status=1 and repair_date is null and r.equipment_id=e.id
+		
+	</select>
+</mapper>
